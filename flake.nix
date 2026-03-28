@@ -70,7 +70,8 @@
                     ${pkgs.lib.getExe pkgs.markdownlint-cli2} \
                       '**/*.md' \
                       '#.direnv' \
-                      '#.venv' \
+                      '#**/.venv' \
+                      '#**/.uv-cache' \
                       '#**/node_modules' \
                       '#*/skills' \
                       '#tmp' \
