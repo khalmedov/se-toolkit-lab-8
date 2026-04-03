@@ -1,49 +1,65 @@
+# Lab 8 Report
+
 ## Task 1A — Bare agent
 
-**Question:** What labs are available?
+### Q: What is the agentic loop?
 
-**Agent's response:**  
-You have 6 lab tasks available:
+The agentic loop is the core cycle that an AI agent follows to accomplish tasks
+autonomously. Instead of a simple one-shot request → response pattern, an agent
+iterates through a loop of:
+1. Perceive — Receive the user's request and observe the current state (files, tools, context).
+2. Think / Plan — Reason about what needs to be done, break the task into steps, and decide on the next action.
+3. Act — Execute an action: call a tool, run a command, read/write a file, search the web, etc.
+4. Observe — See the result of that action (output, error, file contents).
+5. Repeat — Re-evaluate: Is the task done? If not, go back to step 2 with the new information.
 
-Required tasks (4 tasks):
-- Task 1 — Basic Telegram bot with slash commands (/start, /help, /health, /labs, /scores)
-- Task 2 — API client integration to query your backend data
-- Task 3 — LLM-powered natural language understanding with tool use
-- Task 4 — Docker deployment and networking
-- Task 5 — (final required task)
+This loop continues until the task is complete or a stopping condition is met (max iterations, user intervention, etc.).
 
-Optional task (1 task):
-- Task 1 (optional) — Additional challenge
+### Q: What labs are available in our LMS?
 
-Each required task builds on the previous one — you need to complete them in order.
+The agent did not have live backend access at this stage and answered from local documentation:
+
+1. Lab 01 – Products, Architecture & Roles
+2. Lab 02 — Run, Fix, and Deploy a Backend Service
+3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 — Testing, Front-end, and AI Agents
+5. Lab 05 — Data Pipeline and Analytics Dashboard
+6. Lab 06 — Build Your Own Agent
+7. Lab 07 — Build a Client with an AI Coding Agent
+8. Lab 08 — lab-08
 
 ## Task 1B — Agent with LMS tools
 
-**Question:** What labs are available? (using real backend data)
+### Q: What labs are available?
 
-**Agent's response:**  
-The available labs based on the backend data are:
-- Lab 01 – Products, Architecture & Roles
-- Lab 02 — Run, Fix, and Deploy a Backend Service
-- Lab 03 — Backend API: Explore, Debug, Implement, Deploy
-- Lab 04 — Testing, Front-end, and AI Agents
-- Lab 05 — Data Pipeline and Analytics Dashboard
-- Lab 06 — Build Your Own Agent
-- Lab 07 — Build a Client with an AI Coding Agent
-- lab-08
+Here are the available labs:
+1. Lab 01 – Products, Architecture & Roles
+2. Lab 02 — Run, Fix, and Deploy a Backend Service
+3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 — Testing, Front-end, and AI Agents
+5. Lab 05 — Data Pipeline and Analytics Dashboard
+6. Lab 06 — Build Your Own Agent
+7. Lab 07 — Build a Client with an AI Coding Agent
+8. lab-08
+
+Would you like more details on any specific lab, such as pass rates, completion stats, or top learners?
+
+### Q: Is the LMS backend healthy?
+
+Yes, the LMS backend is healthy! It currently has 56 items.
 
 ## Task 1C — Skill prompt
 
-**Skill used:** summarize
+### Q: Show me the scores
 
-**Agent's response after applying the skill:**  
-The agent summarized the available labs as follows:
-- **Lab 01**: Products, Architecture & Roles  
-- **Lab 02**: Run, Fix, and Deploy a Backend Service  
-- **Lab 03**: Backend API: Explore, Debug, Implement, Deploy  
-- **Lab 04**: Testing, Front-end, and AI Agents  
-- **Lab 05**: Data Pipeline and Analytics Dashboard  
-- **Lab 06**: Build Your Own Agent  
-- **Lab 07**: Build a Client with an AI Coding Agent  
-- **lab-08**: (final lab)
+I'll check what labs are available first.
 
+Here are the available labs. Which one would you like to see scores for?
+1. Lab 01 – Products, Architecture & Roles
+2. Lab 02 — Run, Fix, and Deploy a Backend Service
+3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 — Testing, Front-end, and AI Agents
+5. Lab 05 — Data Pipeline and Analytics Dashboard
+6. Lab 06 — Build Your Own Agent
+7. Lab 07 — Build a Client with an AI Coding Agent
+8. lab-08
