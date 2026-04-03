@@ -27,6 +27,16 @@ config["tools"]["mcpServers"]["lms"]["env"] = {
     "NANOBOT_LMS_API_KEY": os.environ["NANOBOT_LMS_API_KEY"],
 }
 
+# Observability MCP server
+config["tools"]["mcpServers"]["obs"] = {
+    "command": "python",
+    "args": ["-m", "mcp_obs.server"],
+    "env": {
+        "NANOBOT_VICTORIALOGS_URL": os.environ.get("NANOBOT_VICTORIALOGS_URL", "http://victorialogs:9428"),
+        "NANOBOT_VICTORIATRACES_URL": os.environ.get("NANOBOT_VICTORIATRACES_URL", "http://victoriatraces:10428"),
+    }
+}
+
 # Webchat MCP server
 webchat_port = os.environ.get("NANOBOT_WEBCHAT_CONTAINER_PORT", "8765")
 access_key = os.environ.get("NANOBOT_ACCESS_KEY", "")

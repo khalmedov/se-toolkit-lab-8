@@ -95,3 +95,49 @@ Which lab would you like to see scores for? Here are the available options:
 6. Lab 06 - Build Your Own Agent
 7. Lab 07 - Build a Client with an AI Coding Agent
 8. lab-08
+
+## Task 3A — Structured logging
+
+Happy-path log excerpt:
+
+    2026-04-03 20:16:54,615 INFO [lms_backend.main] - request_started trace_id=ed24885a223327ed72d7da78197a798e
+    2026-04-03 20:16:54,617 INFO [lms_backend.auth] - auth_success
+    2026-04-03 20:16:54,619 INFO [lms_backend.db.items] - db_query
+    2026-04-03 20:16:54,625 INFO [lms_backend.main] - request_completed
+    INFO: 172.23.0.9:49550 - "GET /items/ HTTP/1.1" 200 OK
+
+Error-path log excerpt:
+
+    2026-04-03 20:17:09,588 INFO [lms_backend.main] - request_started trace_id=85ced008850f6e5150f34f78bb27749a
+    2026-04-03 20:17:09,589 INFO [lms_backend.auth] - auth_success
+    2026-04-03 20:17:09,589 INFO [lms_backend.db.items] - db_query
+    2026-04-03 20:17:09,591 ERROR [lms_backend.db.items] - db_query (connection error)
+    2026-04-03 20:17:09,591 WARNING [lms_backend.routers.items] - items_list_failed_as_not_found
+    2026-04-03 20:17:09,592 INFO [lms_backend.main] - request_completed
+    INFO: 172.23.0.10:45710 - "GET /items/ HTTP/1.1" 404 Not Found
+
+VictoriaLogs query used: _time:1h service.name:"Learning Management Service" severity:ERROR
+[Screenshot shows 16 total results including db_query and items_list_failed_as_not_found events]
+
+## Task 3B — Traces
+
+VictoriaTraces UI accessible at http://10.93.25.106:42002/utils/victoriatraces/select/vmui
+
+Healthy trace: GET /items/ HTTP/1.1 200 OK - spans show request through Learning Management Service with successful db_query.
+
+Error trace: GET /items/ HTTP/1.1 404 - spans show db_query failure with asyncpg connection error when PostgreSQL was stopped.
+
+[Screenshots taken of both traces in VictoriaTraces UI]
+
+## Task 3C — Observability MCP tools
+
+Q: Any LMS backend errors in the last 10 minutes? (normal conditions)
+
+No errors detected in the LMS backend over the last 10 minutes. Everything looks clean!
+
+Q: Any LMS backend errors in the last 10 minutes? (after stopping PostgreSQL)
+
+Yes, there are 2 errors in the last 10 minutes, both database-related:
+1. Connection closed - asyncpg.exceptions.InterfaceError: connection is closed on a SELECT query against the item table.
+2. DNS resolution failure - [Errno -2] Name or service not known during another db_query operation.
+Both errors occurred around 20:29 UTC and point to database connectivity issues.
