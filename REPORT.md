@@ -133,3 +133,39 @@ Yes, there are 2 errors in the last 10 minutes, both database-related:
 1. Connection closed - asyncpg.exceptions.InterfaceError: connection is closed on a SELECT query against the item table.
 2. DNS resolution failure - [Errno -2] Name or service not known during another db_query operation.
 Both errors occurred around 20:29 UTC and point to database connectivity issues.
+
+## Task 4A — Multi-step investigation
+
+With PostgreSQL stopped, agent response to "What went wrong?":
+
+Affected Service: Learning Management Service
+Root Cause: Database connectivity failure. The LMS backend lost its connection to PostgreSQL and couldn't reconnect due to a DNS resolution error (Name or service not known).
+Evidence:
+- Logs: Two errors at ~20:29 UTC - asyncpg.InterfaceError: connection is closed on a SELECT query against the item table, followed by a DNS lookup failure during reconnect.
+- Trace (a9505126...): Shows a failed connect span (200ms timeout), after which GET /items/ returned HTTP 404 instead of serving lab data.
+Impact: The LMS API is currently unhealthy and can't serve any lab or item data until database connectivity is restored.
+
+## Task 4B — Proactive health check
+
+Created cron job (847c6692) running every 2 minutes. Proactive report while PostgreSQL was stopped:
+
+LMS Health Check - 1 error in the last 2 minutes
+Error: Database connection failure during GET /items/
+Root cause: [Errno -2] Name or service not known - DNS resolution failed for the database host.
+Trace: The connect span failed after 177ms, causing the request to return HTTP 404.
+The LMS backend cannot reach its database. Check the database hostname/DNS configuration.
+
+## Task 4C — Bug fix and recovery
+
+Root cause: In backend/src/lms_backend/routers/items.py, the get_items() function had a broad except Exception block that caught all exceptions (including database connection errors) and returned HTTP 404 with "Items not found". This hid the real error.
+
+Fix: Changed the exception handler to return HTTP 500 with the actual error message and log at ERROR level instead of WARNING.
+
+Post-fix failure check (agent response to "What went wrong?" after redeploy):
+
+Affected Service: Learning Management Service
+Error Count: 7 errors in the last 10 minutes
+Root Cause: DNS resolution failure - [Errno -2] Name or service not known during SELECT query on item table.
+Trace Evidence (75d1d06d...): GET /items/ returned HTTP 500 (264ms). connect span failed after 249.5ms. Failure cascaded through items_list_failed -> request_completed with status 500.
+
+Recovery: After restarting PostgreSQL, health check reported: no errors detected in the last 2 minutes. System is healthy.

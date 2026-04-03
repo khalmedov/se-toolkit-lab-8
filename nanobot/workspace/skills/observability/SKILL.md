@@ -14,10 +14,20 @@ You have access to the following observability tools:
 
 ## Strategy
 
-- When the user asks about errors, call `mcp_obs_logs_error_count` first to see how many there are
-- Then call `mcp_obs_logs_search` to inspect details and extract `trace_id` from the logs
-- If a `trace_id` is found, call `mcp_obs_traces_get` to see the full request path
-- Summarize findings concisely — do NOT dump raw JSON
-- For LMS backend queries, use service name "Learning Management Service"
-- Default time window is 10 minutes unless user specifies otherwise
-- Report: number of errors, which operation failed, and what the root cause appears to be
+### When the user asks "What went wrong?" or "Check system health":
+1. Call `mcp_obs_logs_error_count` with minutes=10 for service "Learning Management Service"
+2. Call `mcp_obs_logs_search` with query `_time:10m service.name:"Learning Management Service" severity:ERROR` to get details and extract trace_id
+3. Call `mcp_obs_traces_get` with the most recent trace_id found
+4. Write ONE concise summary that mentions: which service failed, which operation failed, what the root cause is (from logs), and what the trace shows
+
+### When the user asks about errors:
+- Call `mcp_obs_logs_error_count` first
+- If errors > 0, call `mcp_obs_logs_search` to get details
+- Extract trace_id and call `mcp_obs_traces_get`
+- Summarize concisely — do NOT dump raw JSON
+
+### Rules:
+- Default time window: 10 minutes
+- For LMS backend: service name is "Learning Management Service"
+- Always cite both log evidence AND trace evidence in investigation responses
+- Name the affected service and the root failing operation explicitly
