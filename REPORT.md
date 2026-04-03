@@ -2,7 +2,7 @@
 
 ## Task 1A — Bare agent
 
-### Question 1: What is the agentic loop?
+### Q: What is the agentic loop?
 
 The agentic loop is the core cycle that an AI agent follows to accomplish tasks
 autonomously. Instead of a simple one-shot request → response pattern, an agent
@@ -15,9 +15,10 @@ iterates through a loop of:
 
 This loop continues until the task is complete or a stopping condition is met (max iterations, user intervention, etc.).
 
-### Question 2: What labs are available in our LMS?
+### Q: What labs are available in our LMS?
 
-The agent answered from local documentation (no live backend access at this stage):
+The agent did not have live backend access at this stage and answered from local documentation:
+
 1. Lab 01 – Products, Architecture & Roles
 2. Lab 02 — Run, Fix, and Deploy a Backend Service
 3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
@@ -29,8 +30,9 @@ The agent answered from local documentation (no live backend access at this stag
 
 ## Task 1B — Agent with LMS tools
 
-### Question 1: What labs are available?
+### Q: What labs are available?
 
+Here are the available labs:
 1. Lab 01 – Products, Architecture & Roles
 2. Lab 02 — Run, Fix, and Deploy a Backend Service
 3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
@@ -40,19 +42,17 @@ The agent answered from local documentation (no live backend access at this stag
 7. Lab 07 — Build a Client with an AI Coding Agent
 8. lab-08
 
-(Real data returned via MCP lms_labs tool from the backend.)
+Would you like more details on any specific lab, such as pass rates, completion stats, or top learners?
 
-### Question 2: Is the LMS backend healthy?
+### Q: Is the LMS backend healthy?
 
-The agent called lms_health and confirmed the backend is healthy.
+Yes, the LMS backend is healthy! It currently has 56 items.
 
 ## Task 1C — Skill prompt
 
-### Question: Show me the scores
+### Q: Show me the scores
 
-The agent responded:
-
-"I'll check what labs are available first.
+I'll check what labs are available first.
 
 Here are the available labs. Which one would you like to see scores for?
 1. Lab 01 – Products, Architecture & Roles
@@ -62,6 +62,4 @@ Here are the available labs. Which one would you like to see scores for?
 5. Lab 05 — Data Pipeline and Analytics Dashboard
 6. Lab 06 — Build Your Own Agent
 7. Lab 07 — Build a Client with an AI Coding Agent
-8. lab-08"
-
-The skill prompt correctly guides the agent to call lms_labs first when no lab is specified.
+8. lab-08
