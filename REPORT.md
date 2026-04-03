@@ -98,26 +98,18 @@ Which lab would you like to see scores for? Here are the available options:
 
 ## Task 3A — Structured logging
 
-Happy-path log excerpt:
+Happy-path log entry (JSON from VictoriaLogs):
+```json
+{"_msg":"request_completed","event":"request_completed","service.name":"Learning Management Service","severity":"INFO","status":"200","method":"GET","path":"/items/","duration_ms":"67","trace_id":"eb97fe15d658e4a6809ffe0f852631d8","span_id":"12cf27ea2999a130","_time":"2026-04-03T20:19:30.364908288Z"}
+```
 
-    2026-04-03 20:16:54,615 INFO [lms_backend.main] - request_started trace_id=ed24885a223327ed72d7da78197a798e
-    2026-04-03 20:16:54,617 INFO [lms_backend.auth] - auth_success
-    2026-04-03 20:16:54,619 INFO [lms_backend.db.items] - db_query
-    2026-04-03 20:16:54,625 INFO [lms_backend.main] - request_completed
-    INFO: 172.23.0.9:49550 - "GET /items/ HTTP/1.1" 200 OK
+Error-path log entry (JSON from VictoriaLogs, after stopping PostgreSQL):
+```json
+{"_msg":"db_query","event":"db_query","service.name":"Learning Management Service","severity":"ERROR","error":"asyncpg.exceptions.InterfaceError: connection is closed","trace_id":"a95051263f1aedfbeb9e68c9dc4315c2","span_id":"95d00c5a88149103","_time":"2026-04-03T20:29:59.961542912Z"}
+```
 
-Error-path log excerpt:
-
-    2026-04-03 20:17:09,588 INFO [lms_backend.main] - request_started trace_id=85ced008850f6e5150f34f78bb27749a
-    2026-04-03 20:17:09,589 INFO [lms_backend.auth] - auth_success
-    2026-04-03 20:17:09,589 INFO [lms_backend.db.items] - db_query
-    2026-04-03 20:17:09,591 ERROR [lms_backend.db.items] - db_query (connection error)
-    2026-04-03 20:17:09,591 WARNING [lms_backend.routers.items] - items_list_failed_as_not_found
-    2026-04-03 20:17:09,592 INFO [lms_backend.main] - request_completed
-    INFO: 172.23.0.10:45710 - "GET /items/ HTTP/1.1" 404 Not Found
-
-VictoriaLogs query used: _time:1h service.name:"Learning Management Service" severity:ERROR
-[Screenshot shows 16 total results including db_query and items_list_failed_as_not_found events]
+VictoriaLogs query: `_time:1h service.name:"Learning Management Service" severity:ERROR`
+Result: 16 total error entries found, including db_query and items_list_failed_as_not_found events.
 
 ## Task 3B — Traces
 
