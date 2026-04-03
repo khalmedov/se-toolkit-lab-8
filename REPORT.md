@@ -68,6 +68,14 @@ Here are the available labs. Which one would you like to see scores for?
 
 Nanobot gateway started successfully in Docker. Startup log excerpt:
 
+    Using config: /tmp/config.resolved.json
+    Starting nanobot gateway version 0.1.4.post5 on port 18790...
+    WebChat channel enabled
+    Channels enabled: webchat
+    MCP server lms: connected, 9 tools registered
+    MCP server webchat: connected, 1 tools registered
+    Agent loop started
+
 ## Task 2B — Web client
 
 Flutter web client accessible at http://10.93.25.106:42002/flutter
