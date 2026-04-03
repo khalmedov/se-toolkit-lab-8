@@ -63,3 +63,27 @@ Here are the available labs. Which one would you like to see scores for?
 6. Lab 06 — Build Your Own Agent
 7. Lab 07 — Build a Client with an AI Coding Agent
 8. lab-08
+
+## Task 2A — Deployed agent
+
+Nanobot gateway started successfully in Docker. Startup log excerpt:
+
+## Task 2B — Web client
+
+Flutter web client accessible at http://10.93.25.106:42002/flutter
+
+Agent responses from the web client:
+
+**Q: How is the backend doing?**
+The backend is healthy! It's currently managing 56 items. Everything looks good.
+
+**Q: Show me the scores**
+Which lab would you like to see scores for? Here are the available options:
+1. Lab 01 - Products, Architecture & Roles
+2. Lab 02 - Run, Fix, and Deploy a Backend Service
+3. Lab 03 - Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 - Testing, Front-end, and AI Agents
+5. Lab 05 - Data Pipeline and Analytics Dashboard
+6. Lab 06 - Build Your Own Agent
+7. Lab 07 - Build a Client with an AI Coding Agent
+8. lab-08
